@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>movie</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</head>
+<body style="background-color: black;">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 p-3">
+                <h1 class="text-center text-light">FIND THE MOVIES</h1>
+                <div class="d-flex p-4">
+                    <input id="input" type="text" class="form-control" placeholder="search for any movie">
+                    <input onclick="search()" type="button" class="btn btn-success ms-3" value="search">
+                </div>
+                <div id="result" class="p-4 m-2">
+
+                </div>
+                
+            </div>
+            <div class="col-md-4"></div>
+            
+        </div>
+    </div>
+</body>
+
+<script>
+    //function
+    function search(){
+        let movie=input.value
+        console.log(movie);
+        if(movie){
+         fetch(`https://www.omdbapi.com/?apikey=fa1c9c03&t=${movie}`)
+         .then(data=>data.json())
+         .then(data=>{
+        
+            
+            let Title = data.Title
+            console.log(Title);
+            let Released = data.Released
+            console.log(Released);
+            let Runtime = data.Runtime
+            console.log(Runtime);
+            let Genre = data.Genre
+            console.log(Genre);
+            let Director = data.Director
+            console.log(Director);
+            let Writer = data.Writer
+            console.log(Writer);
+            let Actors = data.Actors
+            console.log(Actors);
+            let Awards = data.Awards
+            console.log(Awards);
+            let imdbRating = data.imdbRating
+            console.log(imdbRating);
+            let BoxOffice = data.BoxOffice
+            console.log(BoxOffice);
+            let Poster = data.Poster
+            console.log(Poster);
+
+
+            result.innerHTML = `<div class="card p-3 m-2 rounded-4">
+  <img src=${Poster} class="img-top">
+  <div class="body">
+    <h5 class="card-title text-center">${Title}</h5>
+  </div>
+    <p class="">release date: ${Released}</p>
+    <p class="">Director: ${Director}</p>
+    <p>writer: ${Writer}</p>
+    <p>Actor: ${Actors}</p>
+    <p>Runtime: ${Runtime}</p>
+    <p>genre: ${Genre}</p>
+    <p>Awards: ${Awards}</p>
+
+    <p>Rating: ${imdbRating}</p>
+
+    <p>Boxoffice: ${BoxOffice}</p>
+
+
+  
+</div>`
+            
+         })
+        }
+        else{
+            alert('please enter a valid input')
+        }
+    }
+</script>
+</html>
